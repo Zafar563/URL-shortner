@@ -34,7 +34,10 @@ func main() {
 	log.Info("Starting server", slog.String("env", cfg.Env))
 	log.Debug("debug message enabled")
 
-	storage, err := postgres.New(cfg.StoragePath)
+	storagePath := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		cfg.Storage.Host, cfg.Storage.Port, cfg.Storage.User, cfg.Storage.Password, cfg.Storage.DBName, cfg.Storage.SSLMode)
+
+	storage, err := postgres.New(storagePath)
 	if err != nil {
 		log.Error("Failed to connect to storage", "error", sl.Err(err))
 		os.Exit(1)
@@ -49,6 +52,15 @@ func main() {
 
 	router.Post("/url", save.New(log, storage))
 	router.Get("/{alias}", redirect.New(log, storage))
+
+	// Serve static files
+	fs := http.FileServer(http.Dir("web"))
+	router.Handle("/static/*", http.StripPrefix("/static/", fs))
+
+	// Serve index.html
+	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/index.html")
+	})
 
 	log.Info("Starting server", slog.String("address", cfg.HTTPServer.Address))
 

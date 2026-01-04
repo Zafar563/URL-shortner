@@ -32,7 +32,7 @@ func New(storagePath string) (*Storage, error) {
 func (s *Storage) SaveURL(urlToSave string, alias string) (int64, error) {
 	const op = "storage.postgres.SaveURL"
 
-	stmt, err := s.db.Prepare("INSERT INTO url(url, alias) VALUES($1, $2) RETURNING id")
+	stmt, err := s.db.Prepare("INSERT INTO shorten_urls(url, alias) VALUES($1, $2) RETURNING id")
 	if err != nil {
 		return 0, fmt.Errorf("%s: %w", op, err)
 	}
@@ -54,7 +54,7 @@ func (s *Storage) SaveURL(urlToSave string, alias string) (int64, error) {
 func (s *Storage) GetURL(alias string) (string, error) {
 	const op = "storage.postgres.GetURL"
 
-	stmt, err := s.db.Prepare("SELECT url FROM url WHERE alias = $1")
+	stmt, err := s.db.Prepare("SELECT url FROM shorten_urls WHERE alias = $1")
 	if err != nil {
 		return "", fmt.Errorf("%s: %w", op, err)
 	}

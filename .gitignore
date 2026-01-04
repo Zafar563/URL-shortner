@@ -1,0 +1,11 @@
+# Secrets
+.env
+
+# Binaries
+url-shortener.exe
+*.exe
+*.dll
+
+# IDEs
+.idea/
+.vscode/

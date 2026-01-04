@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Link Shrinker</h1>
+            <p>Make your links short and sweet.</p>
+        </header>
+        
+        <main>
+            <form id="shorten-form">
+                <div class="input-group">
+                    <input type="url" id="url-input" placeholder="Paste your long link here..." required>
+                    <input type="text" id="alias-input" placeholder="Alias (optional)">
+                </div>
+                <button type="submit" id="submit-btn">Shorten It!</button>
+            </form>
+
+            <div id="result-area" class="hidden">
+                <p>Success! Here's your short link:</p>
+                <div class="link-box">
+                    <a href="#" id="short-link" target="_blank"></a>
+                    <button id="copy-btn" title="Copy to clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="error-area" class="hidden">
+                <p id="error-message"></p>
+            </div>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>

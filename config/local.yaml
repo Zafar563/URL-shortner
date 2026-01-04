@@ -1,9 +1,13 @@
 env: "local"
+<<<<<<< HEAD
 storage:
   host: "localhost"
   port: "5436"
   dbname: "url_db"
   sslmode: "disable"
+=======
+
+>>>>>>> 3967043785b9a57cb583dd3be69ae0c44f254fdb
 http_server:
   address: "localhost:8082"
   timeout: 4s
